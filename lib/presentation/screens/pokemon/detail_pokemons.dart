@@ -13,7 +13,13 @@ class DetailPokemon extends StatelessWidget {
       appBar: AppBar(
         title: const Text('detail pokemon'),
       ),
-      body: Text('fuck'),
+      body: SafeArea(
+        child: Stack(
+          children: [
+
+          ],
+        ),
+      )
     );
   }
 }
