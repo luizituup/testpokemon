@@ -27,7 +27,7 @@ class HomePokemonNotifier extends StateNotifier<HomePokemonState> {
 
   void consultarPokemons() async {
     final List<Pokemon> getPokemon = await pokemonRepository.getPokemons();
-    state = state.copyWith(listaPokemons: getPokemon);
+listChangePokemon(getPokemon);
   }
 
   void consultarPokemon(String name) async {
@@ -35,7 +35,14 @@ class HomePokemonNotifier extends StateNotifier<HomePokemonState> {
         await pokemonRepository.getPokemonDetail(name);
     state = state.copyWith(pokemon: pokemonDetail);
   }
+
+//actualiza la lista
+  void listChangePokemon(List<Pokemon> listPokemones) {
+    state = state.copyWith(listaPokemons: listPokemones);
+  }
 }
+
+
 
 
 

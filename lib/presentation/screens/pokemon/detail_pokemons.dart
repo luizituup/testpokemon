@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:testpokemon/presentation/providers/pokemon_provider.dart';
@@ -11,17 +13,27 @@ class DetailPokemon extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref)
   {
-
+    final colors = Theme.of(context).colorScheme;
 final seePokemons = ref.watch(homePokemonProvider).pokemon;
 
     final detailsPokemon = ref.read(homePokemonProvider).pokemon;
-    final String link = detailsPokemon?.sprites.backDefault ??
+    final String link = detailsPokemon?.sprites.frontDefault ??
         'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/2.png';
     
+    if (link == null) {
+      return const Scaffold(
+          body: Center(
+        child: CircularProgressIndicator(
+          strokeWidth: 2,
+        ),
+      ));
+    }
     
     return Scaffold(
       appBar: AppBar(
           title: Text('${detailsPokemon?.name}'),
+        backgroundColor: colors.primary,
+        centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -29,44 +41,49 @@ final seePokemons = ref.watch(homePokemonProvider).pokemon;
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
-                flex: 1,
-              child: Image.network(
+              flex: 1,
+              child: Container(
+                  width: 150.0,
+                  height: 150.0,
+                  child: Image.network(
                 link,
                 fit: BoxFit.cover,
+                  )
               ),
                    
                 ),
-            SizedBox(width: 16),
+            const SizedBox(width: 16),
             Expanded(
               flex: 2,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Id: ${detailsPokemon?.id}',
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    'Identified: ${detailsPokemon?.id}',
+                    style: const TextStyle(
+                        fontSize: 24, fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   Text(
-                    'Nombre: ${detailsPokemon?.name}',
-                    style: TextStyle(fontSize: 16),
+                    'Name: ${detailsPokemon?.name}',
+                    style: const TextStyle(fontSize: 18),
                   ),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   Text(
                     'Height: ${detailsPokemon?.height}',
-                    style: TextStyle(fontSize: 16),
+                    style: const TextStyle(fontSize: 18),
                   ),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   Text(
                     'Weidht: ${detailsPokemon?.weight}',
-                    style: TextStyle(fontSize: 16),
+                    style: const TextStyle(fontSize: 18),
                   ),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   Text(
                     'Base Exp: ${detailsPokemon?.baseExperience}',
-                    style: TextStyle(fontSize: 16),
+                    style: const TextStyle(fontSize: 18),
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                  
                 ],
               ),
