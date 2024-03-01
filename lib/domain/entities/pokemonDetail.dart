@@ -1,3 +1,5 @@
+import 'package:testpokemon/infrastructure/models/response/pokemononly_response.dart';
+
 class PokemonDetail {
   final String name;
   final int id;
@@ -5,6 +7,7 @@ class PokemonDetail {
   final int weight;
   final int baseExperience;
   final List<String> abilities;
+  final Sprites sprites;
 
   PokemonDetail({
     required this.abilities,
@@ -13,5 +16,6 @@ class PokemonDetail {
     required this.id,
     required this.name,
     required this.weight,
+    required this.sprites,
   });
 }

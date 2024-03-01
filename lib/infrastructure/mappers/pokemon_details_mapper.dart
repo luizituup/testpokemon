@@ -10,6 +10,7 @@ class PokemonDetailMapper {
         height: pokemonDetail.height, 
         id: pokemonDetail.id, 
         name: pokemonDetail.name, 
-        weight: pokemonDetail.weight
+          weight: pokemonDetail.weight,
+          sprites: pokemonDetail.sprites
     );
 }

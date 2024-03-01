@@ -12,7 +12,12 @@ class DetailPokemon extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref)
   {
 
+final seePokemons = ref.watch(homePokemonProvider).pokemon;
+
     final detailsPokemon = ref.read(homePokemonProvider).pokemon;
+    final String link = detailsPokemon?.sprites.backDefault ??
+        'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/2.png';
+    
     
     return Scaffold(
       appBar: AppBar(
@@ -25,8 +30,11 @@ class DetailPokemon extends ConsumerWidget {
           children: [
             Expanded(
                 flex: 1,
-                child: Icon(Icons
-                    .catching_pokemon_rounded) //Image.network(pokemon['sprites']['front_default']),
+              child: Image.network(
+                link,
+                fit: BoxFit.cover,
+              ),
+                   
                 ),
             SizedBox(width: 16),
             Expanded(
@@ -59,11 +67,7 @@ class DetailPokemon extends ConsumerWidget {
                     style: TextStyle(fontSize: 16),
                   ),
                   SizedBox(height: 16),
-                  Text(
-                    'Stats:',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(height: 8),
+                 
                 ],
               ),
             ),

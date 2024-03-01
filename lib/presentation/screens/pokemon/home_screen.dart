@@ -26,19 +26,40 @@ class HomeScreen extends ConsumerWidget {
       body: ListView.builder(
           itemCount: verpokemons.listaPokemons?.length ?? 0,
           itemBuilder: (context, index) {
-            
-            
-              final Pokemon? pokemon = verpokemons.listaPokemons?[index];
-      
-            return ListTile(
-              //listado de pokemones
-              leading: Icon(Icons.catching_pokemon_outlined),
-              title: Text('${pokemon?.name}'),
-              trailing: Icon(Icons.arrow_circle_right),
-              onTap: () {
-                ref.read(homePokemonProvider.notifier).consultarPokemon(pokemon?.name ?? 'pikachu');
-                context.pushNamed(DetailPokemon.name);
+            final Pokemon? pokemon = verpokemons.listaPokemons?[index];
+            final count = verpokemons.listaPokemons?.length ?? 0;
+            return Dismissible(
+              key: Key('$pokemon'),
+              direction: DismissDirection.endToStart,
+              onDismissed: (direction) {
+
+                setState() => verpokemons.listaPokemons?.removeAt(index);
+
+                ref
+                    .read(homePokemonProvider.notifier)
+                    .consultarPokemon(pokemon?.name ?? 'pikachu');
+
+                ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('${pokemon} eliminado')));
               },
+              background: Container(
+                color: Colors.cyan,
+                alignment: Alignment.centerRight,
+                padding: EdgeInsets.symmetric(horizontal: 20.0),
+              ),
+              child: ListTile(
+                //listado de pokemones
+                leading: Icon(Icons.catching_pokemon_outlined),
+                title: Text('${pokemon?.name}'),
+                trailing: Icon(Icons.arrow_circle_right),
+                onTap: () {
+                  ref
+                      .read(homePokemonProvider.notifier)
+                      .consultarPokemon(pokemon?.name ?? 'pikachu');
+                  ref.watch(homePokemonProvider);
+                  context.pushNamed(DetailPokemon.name);
+                },
+              ),
             );
             
           }),
