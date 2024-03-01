@@ -16,31 +16,39 @@ class HomeScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final navegation = DetailPokemon();
 
-    const title = 'Listado de Pokemones';
     final verpokemons = ref.watch(homePokemonProvider);
 
     return Scaffold(
       appBar: AppBar(
-          title: Text('Lista Pokemones '),
+        title: const Text('Lista Pokemones'),
       ),
       body: ListView.builder(
-          itemCount: verpokemons.listaPokemons?.length ?? 0  ,
-          itemBuilder: (context, index){
-            final String? listadoPokemonesIndex = verpokemons.listaPokemons?[index].name;
-
-            return ListTile( //listado de pokemones
-              title: Text('$listadoPokemonesIndex'),
-              trailing: Icon(Icons.arrow_forward_ios_rounded),
-              onTap: (){
+          itemCount: verpokemons.listaPokemons?.length ?? 0,
+          itemBuilder: (context, index) {
+            
+            
+              final Pokemon? pokemon = verpokemons.listaPokemons?[index];
+      
+            return ListTile(
+              //listado de pokemones
+              leading: Icon(Icons.catching_pokemon_outlined),
+              title: Text('${pokemon?.name}'),
+              trailing: Icon(Icons.arrow_circle_right),
+              onTap: () {
+                ref.read(homePokemonProvider.notifier).consultarPokemon(pokemon?.name ?? 'pikachu');
                 context.pushNamed(DetailPokemon.name);
               },
             );
-          }
-      ),
-
-      );
+            
+          }),
+      floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            ref.read(homePokemonProvider.notifier).consultarPokemons();
+          },
+          child: const Icon(Icons.access_alarm)),
+    ); 
+      
 
   }
 }

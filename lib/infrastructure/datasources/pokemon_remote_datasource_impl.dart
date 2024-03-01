@@ -4,8 +4,11 @@
 import 'package:dio/dio.dart';
 import 'package:testpokemon/domain/datasources/pokemons_datasources.dart';
 import 'package:testpokemon/domain/entities/pokemon.dart';
+import 'package:testpokemon/domain/entities/pokemonDetail.dart';
+import 'package:testpokemon/infrastructure/mappers/pokemon_details_mapper.dart';
 import 'package:testpokemon/infrastructure/mappers/pokemon_mapper.dart';
 import 'package:testpokemon/infrastructure/models/response/pokemon_response.dart';
+import 'package:testpokemon/infrastructure/models/response/pokemononly_response.dart';
 
 class PokemonRemoteDatasourceImpl extends PokemonsDatasources {
 
@@ -30,6 +33,20 @@ final List<Pokemon> pokemons = pokemonRemoteResponse.results
 .toList();
 
  return pokemons;
+
+  }
+
+
+  @override
+  Future<PokemonDetail> getPokemonDetail(String nombre) async{
+
+    final Response<dynamic> response = await dio.get('/pokemon/$nombre');
+
+    final PokemonDetail pokemon = PokemonDetailMapper.pokemonDetailsRemoteToEntity(PokemonDetailResponse.fromJson(response.data));
+
+    
+
+    return pokemon;
 
   }
   

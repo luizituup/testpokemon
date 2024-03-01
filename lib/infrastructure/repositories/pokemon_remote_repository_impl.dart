@@ -1,5 +1,6 @@
 import 'package:testpokemon/domain/datasources/pokemons_datasources.dart';
 import 'package:testpokemon/domain/entities/pokemon.dart';
+import 'package:testpokemon/domain/entities/pokemonDetail.dart';
 import 'package:testpokemon/domain/repositories/pokemons_repository.dart';
 
 class PokemonRemoteRepositoryImpl extends PokemonsRepository{
@@ -15,5 +16,10 @@ final PokemonsDatasources datasources;
 
 
   }
+
+  @override
+  Future<PokemonDetail> getPokemonDetail(String name) {
+    return this.datasources.getPokemonDetail(name);
+  } 
   
 }
