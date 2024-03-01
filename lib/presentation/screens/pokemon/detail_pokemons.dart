@@ -18,14 +18,60 @@ class DetailPokemon extends ConsumerWidget {
       appBar: AppBar(
           title: Text('${detailsPokemon?.name}'),
       ),
-      body: SafeArea(
-        child: Stack(
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-              Text('$detailsPokemon.baseExperience')
+            Expanded(
+                flex: 1,
+                child: Icon(Icons
+                    .catching_pokemon_rounded) //Image.network(pokemon['sprites']['front_default']),
+                ),
+            SizedBox(width: 16),
+            Expanded(
+              flex: 2,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Id: ${detailsPokemon?.id}',
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(height: 16),
+                  Text(
+                    'Nombre: ${detailsPokemon?.name}',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  SizedBox(height: 8),
+                  Text(
+                    'Height: ${detailsPokemon?.height}',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  SizedBox(height: 8),
+                  Text(
+                    'Weidht: ${detailsPokemon?.weight}',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  SizedBox(height: 8),
+                  Text(
+                    'Base Exp: ${detailsPokemon?.baseExperience}',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  SizedBox(height: 16),
+                  Text(
+                    'Stats:',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(height: 8),
+                ],
+              ),
+            ),
           ],
         ),
-      )
+      ),
     );
+  
   }
 }
 
